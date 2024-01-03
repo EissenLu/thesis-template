@@ -51,7 +51,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,relsize,textcomp,csquotes}
 \usepackage{amsmath,amsfonts}
-\usepackage[ngerman,english]{babel}  % flip for German thesis
+\usepackage[english, ngerman]{babel}  % flip for German thesis
 \usepackage[final]{graphicx}
 \usepackage{setspace,geometry,xcolor}
 \usepackage{makeidx}
@@ -59,6 +59,8 @@
 \usepackage{url}
 \usepackage[toc]{glossaries}
 \usepackage{pdfpages}
+\usepackage[style=numeric, sorting=none]{biblatex}
+\addbibresource{refs.bib}
 
 % table setup
 \usepackage{longtable}
@@ -124,7 +126,7 @@
 
 
 % TODO remove if not needed...
-\usepackage{blindtext}
+ \usepackage{blindtext}
 
 % load glossary entries
 \makenoidxglossaries
@@ -142,36 +144,55 @@
 % https://intern.ohmportal.de/fileadmin/Gelenkte_Doks/Abt/SZS/SB/SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf
 %\includepdf{SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf}\cleardoublepage
 
-\include{content/0_abstract}\cleardoublepage
+\include{content/0_abstract}
+\cleardoublepage
 
 \tableofcontents
+\cleardoublepage
 
-\mainmatter
-\include{content/1_intro}
-\include{content/2_data}
-\include{content/3_method}
-\include{content/4_experiments}
-\include{content/5_outlook}
-\include{content/6_summary}
-
-% remove if not needed
-\appendix
-\include{content/a1_supplemental}
-
-\backmatter
 \listoffigures
 \cleardoublepage
 
 \listoftables
 \cleardoublepage
 
-\renewcommand{\lstlistlistingname}{List of Listings}  % change for German thesis
+\renewcommand{\lstlistlistingname}{Code Verzeichnis}  % change for German thesis
 \lstlistoflistings
 \cleardoublepage
 
-\bibliographystyle{wmaainf}
-\bibliography{refs}
+\mainmatter
 
-\printnoidxglossaries
+\include{content/1_einleitung}
+\include{content/2_theoretische_grundlagen}
+\include{content/3_ausgangslage_und_anforderungsanalyse}
+\include{content/4_toolauswahl}
+\include{content/5_prototypische_implementierung}
+\include{content/6_evaluierung}
+\include{content/7_zusammenfassung}
+\include{content/8_ausblick_fazit}
+
+% remove if not needed
+\appendix
+\include{content/a1_supplemental} % Anhang
+
+\backmatter
+
+%\bibliographystyle{wmaainf}
+% \bibliography{refs} --- Oben schon eingefügt
+
+%\setglossarystyle{customstyle} -- Nur wenn ich ein Glossar brauch
+%\printnoidxglossaries
+
+\newglossarystyle{acronymswithoutpage}{
+  \setglossarystyle{list} % Basierend auf dem list-Stil
+  \renewcommand*{\glossentry}[2]{%
+    \item[\glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}]
+       \glossentrydesc{##1}}
+}
+
+\setglossarystyle{acronymswithoutpage}
+\printnoidxglossary[type=\acronymtype, title=Abkürzungsverzeichnis]
+
+\printbibliography
 
 \end{document}
